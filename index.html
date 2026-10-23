@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>간단한 스톱워치</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>⏱️ 스톱워치</h1>
+    <div id="display">00:00:00</div>
+    <div class="buttons">
+      <button id="startBtn" onclick="startTimer()">시작</button>
+      <button id="stopBtn" onclick="stopTimer()">정지</button>
+      <button id="resetBtn" onclick="resetTimer()">리셋</button>
+    </div>
+  </div>
+
+  <script>
+    let timer;
+    let seconds = 0;
+
+    function updateDisplay() {
+      let hrs = Math.floor(seconds / 3600).toString().padStart(2, '0');
+      let mins = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+      let secs = (seconds % 60).toString().padStart(2, '0');
+      document.getElementById('display').innerText = `${hrs}:${mins}:${secs}`;
+    }
+
+    function startTimer() {
+      if (!timer) {
+        timer = setInterval(() => {
+          seconds++;
+          updateDisplay();
+        }, 1000);
+      }
+    }
+
+    function stopTimer() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    function resetTimer() {
+      stopTimer();
+      seconds = 0;
+      updateDisplay();
+    }
+  </script>
+</body>
+</html>
